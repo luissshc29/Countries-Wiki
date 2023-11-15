@@ -20,10 +20,12 @@ export default function SelectionMenu({
     options: OptionType[];
     children: React.ReactNode;
     onValueChange?: () => void;
-    context?: "filter" | "order";
+    context: "filter" | "order";
 }) {
-    const { alterFilter } = useFilterContext();
-    const { alterOrder } = useOrderContext();
+    const { alterFilter, filter } = useFilterContext();
+    const { alterOrder, order } = useOrderContext();
+
+    const defaultValue = context === "filter" ? filter : order;
 
     function onChange(value: string) {
         if (context === "filter") {
@@ -36,7 +38,10 @@ export default function SelectionMenu({
     }
 
     return (
-        <Select onValueChange={(value) => onChange(value)}>
+        <Select
+            onValueChange={(value) => onChange(value)}
+            defaultValue={defaultValue}
+        >
             <SelectTrigger className="w-1/2">
                 <SelectValue placeholder={children} />
             </SelectTrigger>

@@ -8,11 +8,15 @@ import { useSearchContext } from "@/src/utils/context/SearchContext";
 export default function SearchBox({
     ...props
 }: InputProps & React.RefAttributes<HTMLInputElement>) {
-    const { setSearch } = useSearchContext();
+    const { setSearch, search } = useSearchContext();
 
     return (
         <div className="relative w-full md:w-1/3 flex items-center">
-            <Input {...props} onChange={(e) => setSearch(e.target.value)} />
+            <Input
+                {...props}
+                onChange={(e) => setSearch(e.target.value)}
+                defaultValue={search}
+            />
             <div className="w-fit h-fit absolute right-0 mr-3">
                 <TbWorldSearch />
             </div>
